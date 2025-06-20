@@ -1,0 +1,50 @@
+{% extends 'Employes/base.html' %}
+{% block title %}Liste des Employés{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Liste des Employés</h1>
+            <a href="{% url 'Employes:employee_create' %}" class="btn btn-primary mb-3">Ajouter un Employé</a>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Département</th>
+                            <th>Poste</th>
+                            <th>Sexe</th>
+                            <th>Salaire</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employe in employes %}
+                        <tr>
+                            <td>{{ employe.prenom }}</td>
+                            <td>{{ employe.nom }}</td>
+                            <td>{{ employe.email }}</td>
+                            <td>{{ employe.departement.nom }}</td>
+                            <td>{{ employe.poste.nom }}</td>
+                            <td>{{ employe.get_sexe_display }}</td>
+                            <td>{{ employe.salaire }} €</td>
+                            <td>
+                                <a href="{% url 'Employes:employee_detail' employe.pk %}" class="btn btn-sm btn-info">Voir</a>
+                                <a href="{% url 'Employes:employee_update' employe.pk %}" class="btn btn-sm btn-warning">Modifier</a>
+                                <a href="{% url 'Employes:employee_delete' employe.pk %}" class="btn btn-sm btn-danger">Supprimer</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">Aucun employé trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

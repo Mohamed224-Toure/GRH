@@ -1,0 +1,17 @@
+{% extends 'Employes/base.html' %}
+{% block title %}Supprimer {{ employe.prenom }} {{ employe.nom }}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Supprimer {{ employe.prenom }} {{ employe.nom }}</h1>
+            <p>Êtes-vous sûr de vouloir supprimer cet employé ?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirmer</button>
+                <a href="{% url 'Employes:employee_list' %}" class="btn btn-secondary">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

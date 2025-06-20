@@ -1,0 +1,37 @@
+{% extends 'Employes/base.html' %}
+{% block title %}GRH - Accueil{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center;">
+        <div style="background-color: rgba(44, 62, 80, 0.7); padding: 60px; border-radius: 10px;">
+            <h1 class="text-white">Bienvenue sur le site NTIC-GROUPE 6</h1>
+            <p class="text-white">Gérez vos employés de manière simple et efficace avec notre application intuitive.</p>
+            <a href="{% url 'Employes:employee_list' %}" class="btn btn-light btn-lg mt-3">Voir les Employés</a>
+            <a href="{% url 'Employes:employee_create' %}" class="btn btn-outline-light btn-lg mt-3 ms-2">Ajouter un Employé</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card p-4 text-center">
+                <h3>Gestion des Employés</h3>
+                <p>Consultez, modifiez ou supprimez les informations des employés en un clic.</p>
+                <a href="{% url 'Employes:employee_list' %}" class="btn btn-primary">Accéder</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 text-center">
+                <h3>Ajout Facile</h3>
+                <p>Ajoutez de nouveaux employés rapidement avec un formulaire intuitif.</p>
+                <a href="{% url 'Employes:employee_create' %}" class="btn btn-primary">Ajouter</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4 text-center">
+                <h3>Administration</h3>
+                <p>Gérez les départements, postes et employés via l'interface admin.</p>
+                <a href="/admin/" class="btn btn-primary">Administration</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
