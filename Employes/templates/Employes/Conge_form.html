@@ -1,0 +1,38 @@
+{% extends 'Employes/base.html' %}
+{% block title %}Nouvelle demande de congé{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Nouvelle demande de congé</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Employé</label>
+                    <select name="employe" class="form-select" required>
+                        {% for e in employes %}
+                        <option value="{{ e.id }}">{{ e.prenom }} {{ e.nom }} ({{ e.departement }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date de début</label>
+                        <input type="date" name="date_debut" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date de fin</label>
+                        <input type="date" name="date_fin" class="form-control" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Motif</label>
+                    <textarea name="motif" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+                <a href="{% url 'Employes:conge_list' %}" class="btn btn-secondary">Retour</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

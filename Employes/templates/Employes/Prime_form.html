@@ -1,0 +1,32 @@
+{% extends 'Employes/base.html' %}
+{% block title %}Attribuer une prime{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Attribuer une prime</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Employé</label>
+                    <select name="employe" class="form-select" required>
+                        {% for e in employes %}
+                        <option value="{{ e.id }}">{{ e.prenom }} {{ e.nom }} ({{ e.poste }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Montant (FCFA)</label>
+                    <input type="number" step="0.01" name="montant" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Motif de la prime</label>
+                    <textarea name="motif" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Attribuer la prime</button>
+                <a href="{% url 'Employes:prime_list' %}" class="btn btn-secondary">Retour</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

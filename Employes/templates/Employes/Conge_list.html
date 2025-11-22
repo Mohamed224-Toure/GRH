@@ -1,0 +1,43 @@
+{% extends 'Employes/base.html' %}
+{% block title %}Liste des Congés{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Demandes de Congés</h1>
+    <a href="{% url 'Employes:conge_new' %}" class="btn btn-success mb-3">Nouvelle demande</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Employé</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Motif</th>
+                    <th>Statut</th>
+                    <th>Date demande</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in conges %}
+                <tr>
+                    <td>{{ c.employe }}</td>
+                    <td>{{ c.date_debut }}</td>
+                    <td>{{ c.date_fin }}</td>
+                    <td>{{ c.motif }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if c.statut == 'APPROUVE' %}bg-success
+                            {% elif c.statut == 'REFUSE' %}bg-danger
+                            {% else %}bg-warning{% endif %}">
+                            {{ c.get_statut_display }}
+                        </span>
+                    </td>
+                    <td>{{ c.date_demande|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center">Aucun congé demandé</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

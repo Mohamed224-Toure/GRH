@@ -41,6 +41,45 @@ class Employee(models.Model):
        def __str__(self):
            return f"{self.prenom} {self.nom}"
 
-       class Meta:
+# === NOUVEAU : Gestion des Congés ===
+class Conge(models.Model):
+    employe = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name="Employé")
+    date_debut = models.DateField(verbose_name="Date de début")
+    date_fin = models.DateField(verbose_name="Date de fin")
+    motif = models.CharField(max_length=200, verbose_name="Motif")
+    statut = models.CharField(
+        max_length=20,
+        choices=[
+            ('EN_ATTENTE', 'En attente'),
+            ('APPROUVE', 'Approuvé'),
+            ('REFUSE', 'Refusé')
+        ],
+        default='EN_ATTENTE',
+        verbose_name="Statut"
+    )
+    date_demande = models.DateTimeField(auto_now_add=True, verbose_name="Date de demande")
+
+    class Meta:
+        verbose_name = "Congé"
+        verbose_name_plural = "Congés"
+
+    def __str__(self):
+        return f"{self.employe} - {self.motif} ({self.statut})"
+
+
+# === NOUVEAU : Gestion des Primes ===
+class Prime(models.Model):
+    employe = models.ForeignKey(Employee, on_delete=models.CASCADE, verbose_name="Employé")
+    montant = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Montant (FCFA)")
+    motif = models.CharField(max_length=200, verbose_name="Motif de la prime")
+    date_attribution = models.DateField(auto_now_add=True, verbose_name="Date d'attribution")
+
+    class Meta:
+        verbose_name = "Prime"
+        verbose_name_plural = "Primes"
+
+    def __str__(self):
+        return f"Prime de {self.montant} FCFA - {self.employe}"
+    class Meta:
            verbose_name = "Employé"
            verbose_name_plural = "Employés"
